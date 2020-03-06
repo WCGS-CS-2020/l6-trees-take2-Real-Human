@@ -1,29 +1,98 @@
-﻿using System;
+using System;
+using System.Text;
 
 namespace L6Trees
 {
+    // Print out the tree using the different tree traversal metods
 
-    /*
-     * Tasks:
-     * 1) Complete the implementation of the Node methods
-     * 2) Print out the tree using the different tree traversal metods
-     * 3) Test findNote() and deleteNode()
-     *
-     *
-     */
     class Node
     {
-        // Attributes
-        private  Node left;
-        private  Node right;
-        private string item;
+        private Node left;
+        private Node right;
+        private string itom;
 
-        //Methods
-        public Node(string item) { }
-        public void addNode(string item) {}
-        public Boolean findNode(string item) { return true; }
-        public Boolean deleteNote(string item) { return true; }
-        void printTree() { }
+        public Node(string item)
+        {
+            itom = item;
+        }
+        public void addNode(string item)
+        {
+            if (sortAlphabet(item, itom) == true)
+            {
+                if (left == null)
+                    left = new Node(item);
+                else
+                    left.addNode(item);
+            }
+            else if (sortAlphabet(item, itom) == false)
+            {
+                if (right == null)
+                    right = new Node(item);
+                else
+                    right.addNode(item);
+            }
+        }
+        public bool findNode(string item)
+        {
+            if (item == itom)
+                return true;
+            else if (sortAlphabet(item, itom) == true)
+                return left.findNode(item);
+            else if (sortAlphabet(item, itom) == false)
+                return right.findNode(item);
+            else
+                return false;
+        }
+        //Doesn't work yet
+        public bool deleteNode(string item)
+        {
+            if (item == itom)
+            {
+                itom = "";
+                return true;
+            }
+            else if (sortAlphabet(item, itom) == true)
+            {
+                left.deleteNode(item);
+            }
+            else if (sortAlphabet(item, itom) == false)
+            {
+                right.deleteNode(item);
+            }
+            else
+            {
+                return false;
+            }
+            return false;
+        }
+        //Doesn't work yet
+        public void printTree(Node next)
+        {
+            /*if (left != null)
+            {
+                printTree(left);
+            }
+            if (right != null)
+            {
+                printTree(right);
+            }
+            Console.WriteLine(next);*/
+        }
+
+        bool sortAlphabet(string item, string itom)
+        {
+
+            byte[] itemAscii = Encoding.ASCII.GetBytes(item);
+            byte[] itomAscii = Encoding.ASCII.GetBytes(_item);
+
+            /*if (itemAscii[0] < itomAscii[0])
+                return true;
+            else if (itemAscii[0] > itomAscii[0])
+                return false;
+            */
+
+            return itemAscii[0] < itomAscii[0] ? true : false;
+        }
     }
 
     class Program
